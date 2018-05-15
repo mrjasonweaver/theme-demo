@@ -19,7 +19,7 @@ import {
             opacity: 0,
             width: '100%',
             position: 'absolute',        
-            transform: 'translate(0, 10%)'
+            transform: 'scale(0.98)'
           }),
           {optional:true}),
 
@@ -30,7 +30,7 @@ import {
               opacity: 0,
               width: '100%',
               position: 'absolute',
-              transform: 'translate(0, -10%)'
+              transform: 'scale(1.01)'
             })
           ),
         {optional:true}),
@@ -41,7 +41,7 @@ import {
             style({
               opacity: 1,
               width: '100%',
-              transform: 'translate(0, 0%)'
+              transform: 'scale(1)'
             })
           ),
         {optional:true}),

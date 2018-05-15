@@ -55,7 +55,7 @@ import { UiStateStore } from './store/ui-state';
       // routes
       { path: '', pathMatch: 'full', redirectTo: '/dashboard' },
       { path: 'dashboard', pathMatch: 'full', component: DashboardComponent, data: { animation: 'dashboard' } },
-      { path: 'users', pathMatch: 'full', component: IssuesComponent, data: { animation: 'issues' } }
+      { path: 'users', pathMatch: 'full', component: IssuesComponent, data: { animation: 'users' } }
     ], {useHash: true}),
   ],
   providers: [
