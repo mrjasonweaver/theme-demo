@@ -54,9 +54,9 @@ import { UiStateStore } from './store/ui-state';
     RouterModule.forRoot([
       // routes
       { path: '', pathMatch: 'full', redirectTo: '/dashboard' },
-      { path: 'dashboard', pathMatch: 'full', component: DashboardComponent, data: { animation: 'dashboard' } },
-      { path: 'users', pathMatch: 'full', component: IssuesComponent, data: { animation: 'users' } }
-    ], {useHash: true}),
+      { path: 'dashboard', pathMatch: 'full', component: DashboardComponent, data: { animation: 'dashboard', title: 'Dashboard', icon: 'dashboard' } },
+      { path: 'users', pathMatch: 'full', component: IssuesComponent, data: { animation: 'users', title: 'Users', icon: 'account_circle' } }
+    ], {useHash: false}),
   ],
   providers: [
     BrowserAnimationsModule,

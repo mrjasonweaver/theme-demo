@@ -30,7 +30,7 @@ import {
               opacity: 0,
               width: '100%',
               position: 'absolute',
-              transform: 'scale(1.01)'
+              transform: 'scale(1.001)'
             })
           ),
         {optional:true}),
