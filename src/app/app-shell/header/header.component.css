@@ -1,0 +1,39 @@
+mat-toolbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  left: 0;
+}
+
+nav ul {
+  padding: 0;
+  margin: 0 20px;
+  list-style: none;
+}
+a {
+  font-size: 14px;
+  letter-spacing: 1px;
+  font-weight: 400;
+  color: rgba(255,255,255,.6);
+  text-decoration: none;
+  margin: 0 20px;
+}
+li a {
+  text-transform: uppercase;
+}
+nav a:hover {
+  color: white;
+}
+.global-search {
+  width: 300px;
+  background: rgba(255,255,255,.75);
+  box-shadow: none;
+  border: none;
+  height: 17px;
+  padding: 3px;
+  border-radius: 3px;
+  outline: none;
+}
+.global-search:focus {
+  background: white;
+}

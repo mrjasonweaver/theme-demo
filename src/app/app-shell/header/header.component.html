@@ -1,0 +1,18 @@
+<mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center">
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <app-logo></app-logo>
+    <nav>
+      <ul fxLayout="row" fxLayoutAlign="space-between center">
+        <li><a [routerLink]="['/']">Home</a></li>
+        <li><a [routerLink]="['/reports']">Reports</a></li>
+        <li><a [routerLink]="['/users']">Users</a></li>
+        <li><a [routerLink]="['/organization']">Organization</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <form><input matInput #searchBox class="global-search"></form>
+    <span><a>jweaver</a></span>
+    <mat-icon>settings</mat-icon>
+  </div>
+</mat-toolbar>
