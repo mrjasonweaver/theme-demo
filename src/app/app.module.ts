@@ -1,14 +1,23 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { MatToolbarModule, MatIconModule, MatInputModule } from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, RouterEvent } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { MatToolbarModule, MatButtonModule, MatCheckboxModule, MatTooltipModule, MatCardModule, MatSnackBarModule,
+  MatInputModule, MatTableModule, MatPaginatorModule, MatIconModule, MatProgressBarModule,
+  MatSidenavModule, MatSlideToggleModule, MatDividerModule, MatExpansionModule,
+  MatSortModule, MatPaginator } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HeaderComponent } from './app-shell/header/header.component';
 import { LogoComponent } from './app-shell/logo/logo.component';
+import { IssuesComponent } from './components/issues/issues.component';
+import { IssuesStore } from './store/issues';
+import { IssuesService } from './services/issues/issues.service';
+import { UiStateStore } from './store/ui-state';
 
 
 @NgModule({
@@ -16,21 +25,46 @@ import { LogoComponent } from './app-shell/logo/logo.component';
     AppComponent,
     DashboardComponent,
     HeaderComponent,
-    LogoComponent
+    LogoComponent,
+    IssuesComponent
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
+    FormsModule,
+    HttpClientModule,
     MatToolbarModule,
-    MatIconModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatTooltipModule,
+    MatCardModule,
     MatInputModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatSlideToggleModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatProgressBarModule,
+    MatSnackBarModule,
+    MatSortModule,
     FlexLayoutModule,
     RouterModule.forRoot([
       // routes
-      { path: '', pathMatch: 'full', component: DashboardComponent }
+      { path: '', pathMatch: 'full', redirectTo: '/dashboard' },
+      { path: 'dashboard', pathMatch: 'full', component: DashboardComponent, data: { animation: 'dashboard' } },
+      { path: 'users', pathMatch: 'full', component: IssuesComponent, data: { animation: 'issues' } }
     ], {useHash: true}),
   ],
-  providers: [],
+  providers: [
+    BrowserAnimationsModule,
+    IssuesService,
+    IssuesStore,
+    UiStateStore,
+    MatPaginator
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

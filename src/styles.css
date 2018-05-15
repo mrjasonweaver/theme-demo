@@ -1,7 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
+html { background: #eff2f7; }
 body { margin: 0; }
-
-.app-container {
-  margin-top: 64px;
+.app-container { margin-top: 64px; padding: 0.1px; }
+.container {
+  margin: 40px;
+  border: 1px solid rgba(0,0,0,.1);
+}
+.container:before, .container:after{
+  content: ' ';
+  display: table;
 }

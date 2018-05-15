@@ -4,7 +4,9 @@ mat-toolbar {
   width: 100%;
   left: 0;
 }
-
+mat-icon {
+  color: rgba(255,255,255,.6);
+}
 nav ul {
   padding: 0;
   margin: 0 20px;
@@ -21,7 +23,7 @@ a {
 li a {
   text-transform: uppercase;
 }
-nav a:hover {
+nav a:hover, nav .active {
   color: white;
 }
 .global-search {
@@ -31,7 +33,7 @@ nav a:hover {
   border: none;
   height: 17px;
   padding: 3px;
-  border-radius: 3px;
+  border-radius: 2px;
   outline: none;
 }
 .global-search:focus {
