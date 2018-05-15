@@ -1,8 +1,9 @@
-mat-toolbar {
+.header {
   position: fixed;
   top: 0;
   width: 100%;
   left: 0;
+  z-index: 2;
 }
 mat-icon {
   color: rgba(255,255,255,.6);
@@ -45,5 +46,19 @@ nav a:hover, nav .active {
   top: 0;
   width: 100%;
   left: 0;
-  z-index: 2;
+  z-index: 3;
+}
+.secondary-toolbar {
+  margin-top: 64px;
+}
+.secondary-toolbar .mat-toolbar {
+  background: white;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+}
+.secondary-toolbar .mat-toolbar > div {
+  margin-left: 24px;
+}
+.secondary-toolbar .mat-toolbar > div .mat-icon {
+  padding-right: 20px;
+  font-size: 36px;
 }

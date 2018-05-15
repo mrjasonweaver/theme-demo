@@ -2,12 +2,15 @@
 
 html { background: #eff2f7; }
 body { margin: 0; }
-.app-container { margin-top: 64px; padding: 0.1px; }
+.app-container { padding: 0.1px; }
 .container {
   margin: 40px;
-  border: 1px solid rgba(0,0,0,.1);
 }
 .container:before, .container:after{
   content: ' ';
   display: table;
+}
+.mat-form-field-appearance-outline .mat-form-field-infix,
+.mat-form-field-appearance-fill .mat-form-field-infix {
+  padding: .2em 0 .5em 0;
 }

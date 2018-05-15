@@ -30,4 +30,10 @@ export class IssuesComponent {
     return this.router.navigate(['/users'], { queryParams: { sort, order, page } });
   }
 
+  onSearchChange(value: string, routeQueryParams) {
+    const searchTerm = value;
+    const { sort, order, page } = routeQueryParams;
+    return this.router.navigate(['/users'], { queryParams: { sort, order, page, searchTerm } });
+  }
+
 }

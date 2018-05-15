@@ -25,7 +25,7 @@ import {
 
         // move page off screen up on leave
         query(':leave',
-          animate('500ms ease',
+          animate('50ms ease',
             style({
               opacity: 0,
               width: '100%',
@@ -37,7 +37,7 @@ import {
 
         // move page in screen from bottom to top
         query(':enter',
-          animate('500ms ease',
+          animate('200ms ease',
             style({
               opacity: 1,
               width: '100%',

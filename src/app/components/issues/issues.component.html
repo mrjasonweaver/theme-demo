@@ -1,6 +1,15 @@
 <div class="app-container" *ngIf="(uiStateStore.routeQueryParams$ | async) as routeQueryParams">
   <mat-card *ngIf="(uiStateStore.uiState$ | async) as uiState" class="container">
-    <mat-card-title>Issues and Pull Requests</mat-card-title>
+    <form class="search-users">
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Search Users</mat-label>
+        <input
+          matInput
+          [ngModelOptions]="{standalone: true}"
+          [(ngModel)]="routeQueryParams.params.searchTerm"
+          (keyup.enter)="onSearchChange(searchBox.value, routeQueryParams.params)">
+      </mat-form-field>
+    </form>
     <mat-table #table matSort (matSortChange)="onSortData($event, routeQueryParams.params)" [dataSource]="issues" *ngIf="(issuesStore.issues$ | async) as issues">
       <ng-container matColumnDef="number">
         <mat-header-cell *matHeaderCellDef> Number </mat-header-cell>
