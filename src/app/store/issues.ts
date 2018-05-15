@@ -24,7 +24,15 @@ export class IssuesStore {
 
   navigate() {
     this.uiStateStore.routeQueryParams$.subscribe(x => {
-      this.loadIssues({...params, sort: x.get('sort'), order: x.get('order'), page: x.get('page') });
+      this.loadIssues(
+        {
+          ...params,
+          sort: x.get('sort') ? x.get('sort') : params.sort,
+          order: x.get('order') ? x.get('order') : params.order,
+          page: x.get('page') ? x.get('page') : params.page,
+          perPage: x.get('perPage') ? x.get('perPage') : params.perPage
+        }
+      );
     });
   }
 

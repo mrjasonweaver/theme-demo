@@ -1,7 +1,6 @@
 <div class="app-container" *ngIf="(uiStateStore.routeQueryParams$ | async) as routeQueryParams">
   <mat-card *ngIf="(uiStateStore.uiState$ | async) as uiState" class="container">
     <mat-card-title>Issues and Pull Requests</mat-card-title>
-    <mat-progress-bar *ngIf="uiState.actionOngoing" mode="indeterminate" color="accent"></mat-progress-bar>
     <mat-table #table matSort (matSortChange)="onSortData($event, routeQueryParams.params)" [dataSource]="issues" *ngIf="(issuesStore.issues$ | async) as issues">
       <ng-container matColumnDef="number">
         <mat-header-cell *matHeaderCellDef> Number </mat-header-cell>
@@ -35,7 +34,7 @@
   
     <mat-paginator *ngIf="(issuesStore.issuesCount$ | async) as issuesCount"
       (page)="onPageChange($event, routeQueryParams.params)"
-      [length]="'1000'"
+      [length]="issuesCount"
       [pageIndex]="routeQueryParams.params.page - 1"
       [pageSize]="'10'">
     </mat-paginator>

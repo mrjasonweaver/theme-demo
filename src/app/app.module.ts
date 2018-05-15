@@ -62,8 +62,7 @@ import { UiStateStore } from './store/ui-state';
     BrowserAnimationsModule,
     IssuesService,
     IssuesStore,
-    UiStateStore,
-    MatPaginator
+    UiStateStore
   ],
   bootstrap: [AppComponent]
 })
