@@ -28,6 +28,7 @@ export interface IParams {
   perPage: number;
   sort: string;
   order: string;
+  searchTerm: string;
 }
 
 export const params: IParams = {
@@ -36,7 +37,8 @@ export const params: IParams = {
   page: 1,
   perPage: 10,
   sort: 'created',
-  order: 'desc'
+  order: 'desc',
+  searchTerm: ''
 };
 
 export const mockIssuesObject: IIssuesObject = {

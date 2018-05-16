@@ -20,14 +20,14 @@ export class IssuesComponent {
 
   onPageChange(event, routeQueryParams) {
     const page = event.pageIndex + 1;
-    const { sort, order } = routeQueryParams;
-    return this.router.navigate(['/users'], { queryParams: { sort, order, page } });
+    const { sort, order, searchTerm } = routeQueryParams;
+    return this.router.navigate(['/users'], { queryParams: { sort, order, page, searchTerm } });
   }
 
   onSortData(event, routeQueryParams) {
     const { active: sort, direction: order } = event;
-    const { page } = routeQueryParams;
-    return this.router.navigate(['/users'], { queryParams: { sort, order, page } });
+    const { page, searchTerm } = routeQueryParams;
+    return this.router.navigate(['/users'], { queryParams: { sort, order, page, searchTerm } });
   }
 
   onSearchChange(value: string, routeQueryParams) {

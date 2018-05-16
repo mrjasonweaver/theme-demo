@@ -3,6 +3,7 @@ import { IssuesService } from '../services/issues/issues.service';
 import { IIssuesObject, IIssue, IParams, params } from '../models/issues';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { UiStateStore } from './ui-state';
+import { MatSnackBar } from '@angular/material'
 import { map } from 'rxjs/operators';
 
 @Injectable()
@@ -10,8 +11,13 @@ export class IssuesStore {
 
   private _issuesObject: BehaviorSubject<any> = new BehaviorSubject({});
   public readonly issuesObject: Observable<IIssuesObject> = this._issuesObject.asObservable();
+  config = { duration: 1500 };
 
-  constructor(private issuesService: IssuesService, public uiStateStore: UiStateStore) {
+  constructor(
+    private issuesService: IssuesService,
+    public uiStateStore: UiStateStore,
+    public snackBar: MatSnackBar
+  ) {
     this.navigate();
   }
 
@@ -27,10 +33,11 @@ export class IssuesStore {
       this.loadIssues(
         {
           ...params,
-          sort: x.get('sort') ? x.get('sort') : params.sort,
-          order: x.get('order') ? x.get('order') : params.order,
-          page: x.get('page') ? x.get('page') : params.page,
-          perPage: x.get('perPage') ? x.get('perPage') : params.perPage
+          sort: x.get('sort') || params.sort,
+          order: x.get('order') || params.order,
+          page: x.get('page') || params.page,
+          perPage: x.get('perPage') || params.perPage,
+          searchTerm: x.get('searchTerm') || params.searchTerm
         }
       );
     });
@@ -45,6 +52,7 @@ export class IssuesStore {
       },
         err =>  {
           this.uiStateStore.endAction('Error retrieving issues');
+          this.snackBar.open('No issues found', null, this.config)
         }
       );
   }

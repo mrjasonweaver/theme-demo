@@ -4,13 +4,19 @@
       <mat-form-field appearance="outline" floatLabel="always">
         <mat-label>Search Users</mat-label>
         <input
+          #searchBox
           matInput
           [ngModelOptions]="{standalone: true}"
           [(ngModel)]="routeQueryParams.params.searchTerm"
           (keyup.enter)="onSearchChange(searchBox.value, routeQueryParams.params)">
       </mat-form-field>
     </form>
-    <mat-table #table matSort (matSortChange)="onSortData($event, routeQueryParams.params)" [dataSource]="issues" *ngIf="(issuesStore.issues$ | async) as issues">
+    <mat-table
+      #table
+      matSort
+      (matSortChange)="onSortData($event, routeQueryParams.params)"
+      [dataSource]="issues"
+      *ngIf="(issuesStore.issues$ | async) as issues">
       <ng-container matColumnDef="number">
         <mat-header-cell *matHeaderCellDef> Number </mat-header-cell>
         <mat-cell *matCellDef="let issue"> {{ issue.number }} </mat-cell>

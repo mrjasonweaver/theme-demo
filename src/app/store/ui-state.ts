@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute, ParamMap, Data, Router, NavigationEnd, Event } from '@angular/router';
 import { initialUiState, IUiState } from '../models/ui-state';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
-import { map, filter, take, mergeMap } from 'rxjs/operators';
+import { map, filter, mergeMap } from 'rxjs/operators';
 
 @Injectable()
 export class UiStateStore {
