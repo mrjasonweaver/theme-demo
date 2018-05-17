@@ -1,9 +1,19 @@
 <mat-sidenav-container class="app-container" *ngIf="(uiStateStore.routeQueryParams$ | async) as routeQueryParams">
 
-  <mat-sidenav *ngIf="(uiStateStore.uiState$ | async) as uiState" position="end" mode="side" [opened]="uiState.isSelected" style="width: 300px;">
+  <mat-sidenav *ngIf="(uiStateStore.uiState$ | async) as uiState" fixedInViewport="'true'" fixedTopGap="64" position="end" mode="side" [opened]="uiState.isSelected">
+    <mat-icon class="close-panel-icon" (click)="onSidenavClose(routeQueryParams.params)">close</mat-icon>
+    <div fxLayout="column" fxLayoutAlign="center center">
+      <div class="panel-icon">
+        <mat-icon color="primary">person</mat-icon>
+      </div>
+      <h3 class="panel-heading">User</h3>
+    </div>
+    <mat-divider></mat-divider>
     <div *ngIf="(usersStore.userSelected$ | async) as userSelected">
-      <div>{{userSelected | json}}</div>
-    <button (click)="onSidenavClose(routeQueryParams.params)">Close</button>
+      <div>Login: {{userSelected.login}}</div>
+      <div>Type: {{userSelected.type}}</div>
+      <div>Score: {{userSelected.score}}</div>
+      <div>Admin: {{userSelected.site_admin}}</div>
     </div>
   </mat-sidenav>
 

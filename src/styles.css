@@ -14,3 +14,35 @@ body { margin: 0; }
 .mat-form-field-appearance-fill .mat-form-field-infix {
   padding: .2em 0 .5em 0;
 }
+.loading {
+  opacity: 0.4;
+}
+.selected {
+  background: rgba(255, 153, 0, 0.2);
+}
+.mat-drawer {
+  width: 400px;
+  border-left: 1px solid rgba(0,0,0,.1);
+}
+.mat-drawer > div {
+  padding: 40px;
+}
+.mat-drawer > div:first-of-type {
+  padding: 20px 40px;
+}
+.close-panel-icon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.panel-icon {
+  width: 36px;
+}
+.panel-icon .mat-icon {
+  font-size: 36px;
+}
+.panel-heading {
+  font-size: 18px;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

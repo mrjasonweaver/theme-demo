@@ -17,15 +17,3 @@
 .mat-card {
   margin-bottom: 30px;
 }
-.mat-progress-bar {
-  position: fixed;
-  width: 100%;
-  left: 0;
-  top: 0;
-}
-.loading {
-  opacity: 0.4;
-}
-.selected {
-  background: rgba(255, 153, 0, 0.2);
-}
