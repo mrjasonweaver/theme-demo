@@ -42,4 +42,9 @@ export class UsersComponent {
     return this.router.navigate(['/users'], { queryParams: { sort, order, page, searchTerm, selected } });
   }
 
+  onSidenavClose(routeQueryParams) {
+    const { sort, order, page, searchTerm } = routeQueryParams;
+    return this.router.navigate(['/users'], { queryParams: { sort, order, page, searchTerm } });
+  }
+
 }

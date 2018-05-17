@@ -33,16 +33,18 @@ export class UiStateStore {
     return this._uiState;
   }
 
-  startAction(message: string) {
+  startAction(message: string, isSelected: boolean) {
     this._uiState.next({
       actionOngoing: true,
+      isSelected, 
       message
     });
   }
 
-  endAction(message: string) {
+  endAction(message: string, isSelected: boolean) {
     this._uiState.next({
       actionOngoing: false,
+      isSelected,
       message
     });
   }

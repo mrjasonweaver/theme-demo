@@ -11,6 +11,8 @@ export class UsersStore {
 
   private _usersObject: BehaviorSubject<any> = new BehaviorSubject({});
   public readonly usersObject: Observable<IUsersObject> = this._usersObject.asObservable();
+  private _userSelected: BehaviorSubject<any> = new BehaviorSubject({});
+  public readonly userSelected: Observable<IUser> = this._userSelected.asObservable();
   config = { duration: 1500 };
 
   constructor(
@@ -27,6 +29,9 @@ export class UsersStore {
   get usersCount$() {
     return this._usersObject.pipe(map(res => res.total_count));
   }
+  get userSelected$() {
+    return this._userSelected;
+  }
 
   navigate() {
     this.uiStateStore.routeQueryParams$.subscribe(x => {
@@ -38,20 +43,23 @@ export class UsersStore {
           page: x.get('page') || params.page,
           perPage: x.get('perPage') || params.perPage,
           searchTerm: x.get('searchTerm') || params.searchTerm
-        }
+        },
+        x.get('selected') || params.selected
       );
     });
   }
 
-  loadUsers(userParams) {
-    this.uiStateStore.startAction('Retrieving Users...');
+  loadUsers(userParams, selected) {
+    const isSelected = selected !== '';
+    this.uiStateStore.startAction('Retrieving Users...', isSelected);
     this.usersService.getUsers(userParams)
       .subscribe(res => {
         this._usersObject.next(res);
-        this.uiStateStore.endAction('Users retrieved');
+        this._userSelected.next(res.items.filter(x => x.id === +selected)[0]);
+        this.uiStateStore.endAction('Users retrieved', isSelected);
       },
         err =>  {
-          this.uiStateStore.endAction('Error retrieving Users');
+          this.uiStateStore.endAction('Error retrieving Users', isSelected);
           this.snackBar.open('No Users found', null, this.config)
         }
       );

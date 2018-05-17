@@ -1,4 +1,12 @@
-<div class="app-container" *ngIf="(uiStateStore.routeQueryParams$ | async) as routeQueryParams">
+<mat-sidenav-container class="app-container" *ngIf="(uiStateStore.routeQueryParams$ | async) as routeQueryParams">
+
+  <mat-sidenav *ngIf="(uiStateStore.uiState$ | async) as uiState" position="end" mode="side" [opened]="uiState.isSelected" style="width: 300px;">
+    <div *ngIf="(usersStore.userSelected$ | async) as userSelected">
+      <div>{{userSelected | json}}</div>
+    <button (click)="onSidenavClose(routeQueryParams.params)">Close</button>
+    </div>
+  </mat-sidenav>
+
   <mat-card *ngIf="(uiStateStore.uiState$ | async) as uiState" class="container">
     <mat-card-header fxLayout="row" fxLayoutAlign="start start">
       <form class="search-users">
@@ -63,6 +71,6 @@
       [pageIndex]="routeQueryParams.params.page - 1"
       [pageSize]="'10'">
     </mat-paginator>
-
   </mat-card>
-</div>
+  
+</mat-sidenav-container>
