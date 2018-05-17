@@ -10,7 +10,7 @@ import { UiStateStore } from '../../store/ui-state';
 })
 export class UsersComponent {
 
-  displayedColumns = ['id', 'login', 'type', 'score'];
+  displayedColumns = ['checkbox', 'id', 'login', 'type', 'score'];
 
   constructor(
     public usersStore: UsersStore,

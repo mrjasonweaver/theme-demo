@@ -45,6 +45,14 @@
       (matSortChange)="onSortData($event, routeQueryParams.params)"
       [dataSource]="users"
       *ngIf="(usersStore.users$ | async) as users">
+
+      <ng-container matColumnDef="checkbox">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let user"> 
+          <mat-icon *ngIf="+routeQueryParams.params.selected === user.id" color="accent">check_box</mat-icon>
+          <mat-icon *ngIf="+routeQueryParams.params.selected !== user.id">check_box_outline_blank</mat-icon>
+        </mat-cell>
+      </ng-container>
       
       <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
