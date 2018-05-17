@@ -39,6 +39,7 @@
       </mat-paginator>
     </mat-card-header>
     <mat-divider></mat-divider>
+    <mat-card-content>
     <mat-table
       #table
       matSort
@@ -83,6 +84,7 @@
       </mat-row>
   
     </mat-table>
+    </mat-card-content>
     <mat-paginator *ngIf="(usersStore.usersCount$ | async) as usersCount"
       (page)="onPageChange($event, routeQueryParams.params)"
       [length]="usersCount"
