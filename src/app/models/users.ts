@@ -36,5 +36,5 @@ export const params: IParams = {
   perPage: 10,
   sort: 'created',
   order: 'desc',
-  searchTerm: ''
+  searchTerm: 'github'
 };

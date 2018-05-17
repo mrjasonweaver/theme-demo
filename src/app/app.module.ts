@@ -61,9 +61,9 @@ import { UsersStore } from './store/users';
       // routes
       { path: '', pathMatch: 'full', redirectTo: '/dashboard' },
       { path: 'dashboard', pathMatch: 'full', component: DashboardComponent, data: { animation: 'dashboard', title: 'Dashboard', icon: 'dashboard' } },
-      { path: 'reports', pathMatch: 'full', component: IssuesComponent, data: { animation: 'users', title: 'Reports', icon: 'insert_chart' } },
+      { path: 'reports', pathMatch: 'full', component: IssuesComponent, data: { animation: 'reports', title: 'Reports', icon: 'insert_chart' } },
       { path: 'users', pathMatch: 'full', component: UsersComponent, data: { animation: 'users', title: 'Users', icon: 'account_circle' } },
-      { path: 'organizations', pathMatch: 'full', component: OrganizationsComponent, data: { animation: 'dashboard', title: 'Organizations', icon: 'group_work' } }
+      { path: 'organizations', pathMatch: 'full', component: OrganizationsComponent, data: { animation: 'organizations', title: 'Organizations', icon: 'group_work' } }
     ], {useHash: false}),
   ],
   providers: [

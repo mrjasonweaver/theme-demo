@@ -1,22 +1,33 @@
 <div class="app-container" *ngIf="(uiStateStore.routeQueryParams$ | async) as routeQueryParams">
   <mat-card *ngIf="(uiStateStore.uiState$ | async) as uiState" class="container">
-    <form class="search-users">
-      <mat-form-field appearance="outline" floatLabel="always">
-        <mat-label>Search Users</mat-label>
-        <input
-          #searchBox
-          matInput
-          [ngModelOptions]="{standalone: true}"
-          [(ngModel)]="routeQueryParams.params.searchTerm"
-          (keyup.enter)="onSearchChange(searchBox.value, routeQueryParams.params)">
-      </mat-form-field>
-    </form>
+    <mat-card-header fxLayout="row" fxLayoutAlign="start start">
+      <form class="search-users">
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Search Users</mat-label>
+          <input
+            #searchBox
+            matInput
+            [ngModelOptions]="{standalone: true}"
+            [(ngModel)]="routeQueryParams.params.searchTerm"
+            (keyup.enter)="onSearchChange(searchBox.value, routeQueryParams.params)">
+        </mat-form-field>
+      </form>
+      <span fxFlex></span>
+      <mat-paginator *ngIf="(usersStore.usersCount$ | async) as usersCount"
+        (page)="onPageChange($event, routeQueryParams.params)"
+        [length]="usersCount"
+        [pageIndex]="routeQueryParams.params.page - 1"
+        [pageSize]="'10'">
+      </mat-paginator>
+    </mat-card-header>
+    <mat-divider></mat-divider>
     <mat-table
       #table
       matSort
       (matSortChange)="onSortData($event, routeQueryParams.params)"
       [dataSource]="users"
       *ngIf="(usersStore.users$ | async) as users">
+      
       <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
         <mat-cell *matCellDef="let user"> {{ user.id }} </mat-cell>
@@ -33,7 +44,7 @@
       </ng-container>
 
       <ng-container matColumnDef="score">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Score </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef> Score </mat-header-cell>
         <mat-cell *matCellDef="let user"> {{ user.score }} </mat-cell>
       </ng-container>
 
@@ -42,12 +53,6 @@
       <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'loading' : uiState.actionOngoing}"></mat-row>
   
     </mat-table>
-  
-    <mat-paginator *ngIf="(usersStore.usersCount$ | async) as usersCount"
-      (page)="onPageChange($event, routeQueryParams.params)"
-      [length]="usersCount"
-      [pageIndex]="routeQueryParams.params.page - 1"
-      [pageSize]="'10'">
-    </mat-paginator>
+
   </mat-card>
 </div>
