@@ -29,6 +29,7 @@ export interface IParams {
   sort: string;
   order: string;
   searchTerm: string;
+  selected: string;
 }
 
 export const params: IParams = {
@@ -36,5 +37,6 @@ export const params: IParams = {
   perPage: 10,
   sort: 'created',
   order: 'desc',
-  searchTerm: 'github'
+  searchTerm: 'github',
+  selected: ''
 };

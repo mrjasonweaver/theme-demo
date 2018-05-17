@@ -36,4 +36,10 @@ export class UsersComponent {
     return this.router.navigate(['/users'], { queryParams: { sort, order, page, searchTerm } });
   }
 
+  onSelect(value: string, routeQueryParams) {
+    const selected = value;
+    const { sort, order, page, searchTerm } = routeQueryParams;
+    return this.router.navigate(['/users'], { queryParams: { sort, order, page, searchTerm, selected } });
+  }
+
 }

@@ -50,7 +50,11 @@
 
   
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'loading' : uiState.actionOngoing}"></mat-row>
+      <mat-row
+        *matRowDef="let row; columns: displayedColumns;"
+        (click)="onSelect(row.id, routeQueryParams.params)"
+        [ngClass]="{'loading' : uiState.actionOngoing}">
+      </mat-row>
   
     </mat-table>
     <mat-paginator *ngIf="(usersStore.usersCount$ | async) as usersCount"
