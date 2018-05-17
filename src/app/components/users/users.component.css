@@ -26,3 +26,6 @@
 .loading {
   opacity: 0.4;
 }
+.selected {
+  background: rgb(229, 255, 0, .3);
+}

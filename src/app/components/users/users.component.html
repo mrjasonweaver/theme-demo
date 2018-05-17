@@ -61,7 +61,7 @@
       <mat-row
         *matRowDef="let row; columns: displayedColumns;"
         (click)="onSelect(row.id, routeQueryParams.params)"
-        [ngClass]="{'loading' : uiState.actionOngoing}">
+        [ngClass]="{'loading' : uiState.actionOngoing, 'selected' : +routeQueryParams.params.selected === row.id}">
       </mat-row>
   
     </mat-table>
