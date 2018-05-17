@@ -18,6 +18,8 @@ import { IssuesComponent } from './components/issues/issues.component';
 import { IssuesStore } from './store/issues';
 import { IssuesService } from './services/issues/issues.service';
 import { UiStateStore } from './store/ui-state';
+import { UsersComponent } from './components/users/users.component';
+import { OrganizationsComponent } from './components/organizations/organizations.component';
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import { UiStateStore } from './store/ui-state';
     DashboardComponent,
     HeaderComponent,
     LogoComponent,
-    IssuesComponent
+    IssuesComponent,
+    UsersComponent,
+    OrganizationsComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +59,9 @@ import { UiStateStore } from './store/ui-state';
       // routes
       { path: '', pathMatch: 'full', redirectTo: '/dashboard' },
       { path: 'dashboard', pathMatch: 'full', component: DashboardComponent, data: { animation: 'dashboard', title: 'Dashboard', icon: 'dashboard' } },
-      { path: 'users', pathMatch: 'full', component: IssuesComponent, data: { animation: 'users', title: 'Users', icon: 'account_circle' } }
+      { path: 'reports', pathMatch: 'full', component: IssuesComponent, data: { animation: 'users', title: 'Reports', icon: 'insert_chart' } },
+      { path: 'users', pathMatch: 'full', component: UsersComponent, data: { animation: 'users', title: 'Users', icon: 'account_circle' } },
+      { path: 'organizations', pathMatch: 'full', component: OrganizationsComponent, data: { animation: 'dashboard', title: 'Organizations', icon: 'group_work' } }
     ], {useHash: false}),
   ],
   providers: [
