@@ -17,7 +17,7 @@ body { margin: 0; }
 .loading {
   opacity: 0.4;
 }
-.selected {
+.mat-row:hover.selected, .mat-row.selected {
   background: rgba(255, 153, 0, 0.2);
 }
 .mat-drawer {
@@ -45,4 +45,7 @@ body { margin: 0; }
   font-size: 18px;
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.mat-row:hover {
+  background-color: #f6f6f6;
 }
