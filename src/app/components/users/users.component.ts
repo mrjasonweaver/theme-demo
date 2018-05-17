@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { IssuesStore } from '../../store/issues';
+import { UsersStore } from '../../store/users';
 import { UiStateStore } from '../../store/ui-state';
 
 @Component({
@@ -10,10 +10,10 @@ import { UiStateStore } from '../../store/ui-state';
 })
 export class UsersComponent {
 
-  displayedColumns = ['number', 'user', 'title', 'created', 'comments'];
+  displayedColumns = ['id', 'login', 'type', 'score'];
 
   constructor(
-    public issuesStore: IssuesStore,
+    public usersStore: UsersStore,
     public uiStateStore: UiStateStore,
     private router: Router
   ) {}

@@ -20,6 +20,8 @@ import { IssuesService } from './services/issues/issues.service';
 import { UiStateStore } from './store/ui-state';
 import { UsersComponent } from './components/users/users.component';
 import { OrganizationsComponent } from './components/organizations/organizations.component';
+import { UsersService } from './services/users/users.service';
+import { UsersStore } from './store/users';
 
 
 @NgModule({
@@ -67,8 +69,10 @@ import { OrganizationsComponent } from './components/organizations/organizations
   providers: [
     BrowserAnimationsModule,
     IssuesService,
+    UsersService,
     IssuesStore,
-    UiStateStore
+    UiStateStore,
+    UsersStore
   ],
   bootstrap: [AppComponent]
 })
