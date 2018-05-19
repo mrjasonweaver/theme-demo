@@ -10,10 +10,12 @@
     </div>
     <mat-divider></mat-divider>
     <div *ngIf="(usersStore.userSelected$ | async) as userSelected">
-      <div>Login: {{userSelected.login}}</div>
-      <div>Type: {{userSelected.type}}</div>
-      <div>Score: {{userSelected.score}}</div>
-      <div>Admin: {{userSelected.site_admin}}</div>
+      <ul>
+        <li>{{userSelected.login}}</li>
+        <li>{{userSelected.type}}</li>
+        <li>{{userSelected.score}}</li>
+        <li>{{userSelected.site_admin}}</li>
+      </ul>
     </div>
   </mat-sidenav>
 
