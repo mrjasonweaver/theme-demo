@@ -22,6 +22,7 @@ import { UsersComponent } from './components/users/users.component';
 import { OrganizationsComponent } from './components/organizations/organizations.component';
 import { UsersService } from './services/users/users.service';
 import { UsersStore } from './store/users';
+import { DebounceObsInputComponent } from './components/debounce-obs-input/debounce-obs-input.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { UsersStore } from './store/users';
     LogoComponent,
     IssuesComponent,
     UsersComponent,
-    OrganizationsComponent
+    OrganizationsComponent,
+    DebounceObsInputComponent
   ],
   imports: [
     BrowserModule,

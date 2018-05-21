@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsersStore } from '../../store/users';
 import { UiStateStore } from '../../store/ui-state';
@@ -8,42 +8,50 @@ import { UiStateStore } from '../../store/ui-state';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
-export class UsersComponent {
-
+export class UsersComponent implements OnInit {
+  routeQueryParams;
+  searchTerm = '';
   displayedColumns = ['checkbox', 'id', 'login', 'type', 'score'];
 
   constructor(
     public usersStore: UsersStore,
     public uiStateStore: UiStateStore,
     private router: Router
-  ) {}
+  ) { }
 
-  onPageChange(event, routeQueryParams) {
+  ngOnInit() {
+    this.uiStateStore.routeQueryParams$.subscribe(x => this.routeQueryParams = x);
+    this.uiStateStore.inputValue$.subscribe(x => {
+      this.searchTerm = x;
+      if (this.searchTerm) this.onSearchChange();
+    });
+  }
+
+  onPageChange(event) {
     const page = event.pageIndex + 1;
-    const { sort, order, searchTerm } = routeQueryParams;
+    const { sort, order, searchTerm } = this.routeQueryParams.params;
     return this.router.navigate(['/users'], { queryParams: { sort, order, page, searchTerm } });
   }
 
-  onSortData(event, routeQueryParams) {
+  onSortData(event) {
     const { active: sort, direction: order } = event;
-    const { page, searchTerm } = routeQueryParams;
+    const { page, searchTerm } = this.routeQueryParams.params;
     return this.router.navigate(['/users'], { queryParams: { sort, order, page, searchTerm } });
   }
 
-  onSearchChange(value: string, routeQueryParams) {
-    const searchTerm = value;
-    const { sort, order, page } = routeQueryParams;
-    return this.router.navigate(['/users'], { queryParams: { sort, order, page, searchTerm } });
+  onSearchChange() {
+    const { sort, order, page } = this.routeQueryParams.params;
+    return this.router.navigate(['/users'], { queryParams: { sort, order, page, searchTerm: this.searchTerm } });
   }
 
-  onSelect(value: string, routeQueryParams) {
+  onSelect(value: string) {
     const selected = value;
-    const { sort, order, page, searchTerm } = routeQueryParams;
+    const { sort, order, page, searchTerm } = this.routeQueryParams.params;
     return this.router.navigate(['/users'], { queryParams: { sort, order, page, searchTerm, selected } });
   }
 
-  onSidenavClose(routeQueryParams) {
-    const { sort, order, page, searchTerm } = routeQueryParams;
+  onSidenavClose() {
+    const { sort, order, page, searchTerm } = this.routeQueryParams.params;
     return this.router.navigate(['/users'], { queryParams: { sort, order, page, searchTerm } });
   }
 

@@ -4,15 +4,15 @@ import { IUsersObject, IUser, IParams, params } from '../models/users';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { UiStateStore } from './ui-state';
 import { MatSnackBar } from '@angular/material'
-import { map } from 'rxjs/operators';
+import { map, debounceTime } from 'rxjs/operators';
 
 @Injectable()
 export class UsersStore {
 
   private _usersObject: BehaviorSubject<any> = new BehaviorSubject({});
-  public readonly usersObject: Observable<IUsersObject> = this._usersObject.asObservable();
+  public readonly usersObject: Observable<IUsersObject> = this._usersObject;
   private _userSelected: BehaviorSubject<any> = new BehaviorSubject({});
-  public readonly userSelected: Observable<IUser> = this._userSelected.asObservable();
+  public readonly userSelected: Observable<IUser> = this._userSelected;
   config = { duration: 1500 };
 
   constructor(
@@ -24,13 +24,13 @@ export class UsersStore {
   }
 
   get users$() {
-    return this._usersObject.pipe(map(res => res.items));
+    return this.usersObject.pipe(map(res => res.items));
   }
   get usersCount$() {
-    return this._usersObject.pipe(map(res => res.total_count));
+    return this.usersObject.pipe(map(res => res.total_count));
   }
   get userSelected$() {
-    return this._userSelected;
+    return this.userSelected;
   }
 
   navigate() {
