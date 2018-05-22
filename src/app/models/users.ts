@@ -21,7 +21,7 @@ export interface IUsersObject {
 export const UsersObject: IUsersObject = {
   total_count: 100,
   items: []
-}
+};
 
 export interface IParams {
   page: number;

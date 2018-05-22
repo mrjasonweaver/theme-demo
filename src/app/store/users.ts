@@ -3,7 +3,7 @@ import { UsersService } from '../services/users/users.service';
 import { IUsersObject, IUser, IParams, params } from '../models/users';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { UiStateStore } from './ui-state';
-import { MatSnackBar } from '@angular/material'
+import { MatSnackBar } from '@angular/material';
 import { map, debounceTime } from 'rxjs/operators';
 
 @Injectable()
@@ -60,7 +60,7 @@ export class UsersStore {
       },
         err =>  {
           this.uiStateStore.endAction('Error retrieving Users', isSelected);
-          this.snackBar.open('No Users found', null, this.config)
+          this.snackBar.open('No Users found', null, this.config);
         }
       );
   }

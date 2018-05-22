@@ -23,7 +23,7 @@ export class UsersComponent implements OnInit {
     this.uiStateStore.routeQueryParams$.subscribe(x => this.routeQueryParams = x);
     this.uiStateStore.inputValue$.subscribe(x => {
       this.searchTerm = x;
-      if (this.searchTerm) this.onSearchChange();
+      if (this.searchTerm) { this.onSearchChange(); }
     });
   }
 

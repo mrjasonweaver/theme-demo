@@ -3,7 +3,7 @@ import { IssuesService } from '../services/issues/issues.service';
 import { IIssuesObject, IIssue, IParams, params } from '../models/issues';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { UiStateStore } from './ui-state';
-import { MatSnackBar } from '@angular/material'
+import { MatSnackBar } from '@angular/material';
 import { map } from 'rxjs/operators';
 
 @Injectable()
@@ -52,7 +52,7 @@ export class IssuesStore {
       },
         err =>  {
           this.uiStateStore.endAction('Error retrieving issues', null);
-          this.snackBar.open('No issues found', null, this.config)
+          this.snackBar.open('No issues found', null, this.config);
         }
       );
   }

@@ -25,11 +25,11 @@ export class UiStateStore {
     router.events.pipe(
       filter(event => event instanceof NavigationEnd),
       map(() => r),
-      map(r => r.firstChild),
-      filter(r => r.outlet === 'primary'),
-      mergeMap(r => r.data)
+      map(rt => rt.firstChild),
+      filter(rt => rt.outlet === 'primary'),
+      mergeMap(rt => rt.data)
     ).subscribe(x => this._route = x);
-  
+
   }
 
   get routeQueryParams$() {
@@ -52,7 +52,7 @@ export class UiStateStore {
   startAction(message: string, isSelected: boolean) {
     this._uiState.next({
       actionOngoing: true,
-      isSelected, 
+      isSelected,
       message
     });
   }

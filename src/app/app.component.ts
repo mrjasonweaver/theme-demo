@@ -18,10 +18,10 @@ import {
           style({
             opacity: 0,
             width: '100%',
-            position: 'absolute',        
+            position: 'absolute',
             transform: 'scale(0.98)'
           }),
-          {optional:true}),
+          { optional: true }),
 
         // move page off screen up on leave
         query(':leave',
@@ -33,7 +33,7 @@ import {
               transform: 'scale(1.001)'
             })
           ),
-        {optional:true}),
+        { optional: true }),
 
         // move page in screen from bottom to top
         query(':enter',
@@ -44,7 +44,7 @@ import {
               transform: 'scale(1)'
             })
           ),
-        {optional:true}),
+        { optional: true }),
       ])
     ])
   ],
@@ -54,6 +54,6 @@ import {
 export class AppComponent {
   // change the animation state
   getRouteAnimation(outlet) {
-    return outlet.activatedRouteData.animation
+    return outlet.activatedRouteData.animation;
   }
 }
