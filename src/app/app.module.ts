@@ -23,6 +23,7 @@ import { OrganizationsComponent } from './components/organizations/organizations
 import { UsersService } from './services/users/users.service';
 import { UsersStore } from './store/users';
 import { DebounceObsInputComponent } from './components/debounce-obs-input/debounce-obs-input.component';
+import { CacheService } from './services/cache.service';
 
 
 @NgModule({
@@ -98,7 +99,8 @@ import { DebounceObsInputComponent } from './components/debounce-obs-input/debou
     UsersService,
     IssuesStore,
     UiStateStore,
-    UsersStore
+    UsersStore,
+    CacheService
   ],
   bootstrap: [AppComponent]
 })

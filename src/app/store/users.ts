@@ -42,39 +42,36 @@ export class UsersStore {
 
   navigate() {
     this.uiStateStore.routeQueryParams$.subscribe(x => {
-      this.loadUsers(
-        {
-          ...params,
-          sort: x.get('sort') || params.sort,
-          order: x.get('order') || params.order,
-          page: x.get('page') || params.page,
-          perPage: x.get('perPage') || params.perPage,
-          searchTerm: x.get('searchTerm') || params.searchTerm
-        },
-        x.get('selected') || params.selected
-      );
+      const queryParams = {
+        ...params,
+        sort: x.get('sort') || params.sort,
+        order: x.get('order') || params.order,
+        page: x.get('page') || params.page,
+        perPage: x.get('perPage') || params.perPage,
+        searchTerm: x.get('searchTerm') || params.searchTerm
+      };
+      const selected = x.get('selected') || params.selected;
+      return this.loadUsers(queryParams, selected);
     });
   }
 
   loadUsers(userParams, selected) {
     const isSelected = selected !== '';
-    const params = userParams;
-    const key = Object.keys(params).map(x => params[x]).reduce((a, x) => a += x,'');
+    const p = userParams;
+    const key = Object.keys(p).map(x => p[x]).reduce((a, x) => a += x, '');
     const expiry = Date.now() + this.DEFAULT_MAX_AGE;
     this.uiStateStore.startAction('Retrieving Users...', isSelected);
     if (this.cache.has(key)) {
-      console.log(`has key ${key}`);
-      console.log('usersObject', this.cache.get(key).value);
-      console.log('selected User', this.cache.get(key).value.items.filter(x => x.id === +selected)[0]);
       this._usersObject.next(this.cache.get(key).value);
       this._userSelected.next(this.cache.get(key).value.items.filter(x => x.id === +selected)[0]);
+      this.uiStateStore.endAction('Users retrieved', isSelected);
     } else {
-      this.usersService.getUsers(userParams)
-      .subscribe(res => {
+      this.usersService.getUsers(userParams).subscribe(res => {
         const value = res;
         this.cache.set(key, { value, expiry });
         this._usersObject.next(res);
         this._userSelected.next(res.items.filter(x => x.id === +selected)[0]);
+        this.uiStateStore.endAction('Users retrieved', isSelected);
       },
         err =>  {
           this.uiStateStore.endAction('Error retrieving Users', isSelected);
@@ -82,8 +79,6 @@ export class UsersStore {
         }
       );
     }
-    console.log(this.cache);
-    this.uiStateStore.endAction('Users retrieved', isSelected);
   }
 
 }
