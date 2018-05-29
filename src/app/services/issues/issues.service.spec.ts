@@ -4,7 +4,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { IssuesService } from './issues.service';
 import { IIssuesObject, params, mockIssuesObject } from '../../models/issues';
 
-describe('IssuesService', () => {
+xdescribe('IssuesService', () => {
   let injector: TestBed;
   let issuesTestService: IssuesService;
   let httpMock: HttpTestingController;

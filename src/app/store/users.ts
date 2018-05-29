@@ -5,6 +5,7 @@ import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { UiStateStore } from './ui-state';
 import { MatSnackBar } from '@angular/material';
 import { map, debounceTime } from 'rxjs/operators';
+import { makeKeyStr } from '../utilities/objects/objects';
 
 interface CacheContent {
   expiry: number;
@@ -80,7 +81,7 @@ export class UsersStore {
   loadUsers(userParams, selected) {
     const isSelected = selected !== '';
     const p = userParams;
-    const key = Object.keys(p).map(x => p[x]).reduce((a, x) => a += x, '');
+    const key = makeKeyStr(p);
     this.uiStateStore.startAction('Retrieving Users...', isSelected);
     this.cache.has(key)
       ? this.loadUsersFromCache(key, selected, isSelected)
