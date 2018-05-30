@@ -55,19 +55,25 @@ export class UsersStore {
     };
   }
 
+  loadUsers(p): void {
+    this._key = makeKeyStr(p);
+    this.uiStateStore.startAction('Retrieving Users...');
+    return this.cache.validKey(this._key) ? this.loadCache() : this.loadApi(p);
+  }
+
   loadCache(): void {
     const users = this.cache.getCache(this._key).value;
     const selected = users.items.filter(x => x.id === +this._selected)[0];
-    this.nextData(this._usersObject, users);
-    this.nextData(this._userSelected, selected);
+    this._usersObject.next(users);
+    this._userSelected.next(selected);
     this.uiStateStore.endAction('Users retrieved');
   }
 
   loadApi(userParams): void {
     this.usersService.getUsers(userParams).subscribe(res => {
       this.cache.setCache(this._key, res);
-      this.nextData(this._usersObject, res);
-      this.nextData(this._userSelected, res.items.filter(x => x.id === +this._selected)[0]);
+      this._usersObject.next(res);
+      this._userSelected.next(res.items.filter(x => x.id === +this._selected)[0]);
       this.uiStateStore.endAction('Users retrieved');
     },
       err =>  {
@@ -75,16 +81,6 @@ export class UsersStore {
         this.snackBar.open('Error retrieving Users', null, this.config);
       }
     );
-  }
-
-  nextData(obs: BehaviorSubject<any>, data: IUsersObject | Object): void {
-    return obs.next(data);
-  }
-
-  loadUsers(p): void {
-    this._key = makeKeyStr(p);
-    this.uiStateStore.startAction('Retrieving Users...');
-    return this.cache.validKey(this._key) ? this.loadCache() : this.loadApi(p);
   }
 
 }
