@@ -6,7 +6,7 @@ export interface CacheContent {
 }
 
 /**
- * Cache Service is an in-memory cache implementation
+ * Cache Service is a simple in-memory cache implementation
  * @export
  * @class CacheService
  */

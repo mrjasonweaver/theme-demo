@@ -5,8 +5,6 @@ describe('CacheService', () => {
   let mockCacheMap;
   let mockKey;
   let mockContent;
-  let mockGetCache;
-  let mockTimeStamp;
 
   beforeEach(() => {
     cache = new CacheService();

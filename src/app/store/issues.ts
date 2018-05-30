@@ -44,14 +44,14 @@ export class IssuesStore {
   }
 
   loadIssues(userParams) {
-    this.uiStateStore.startAction('Retrieving issues...', null);
+    this.uiStateStore.startAction('Retrieving issues...');
     this.issuesService.getIssues(userParams)
       .subscribe(res => {
         this._issuesObject.next(res);
-        this.uiStateStore.endAction('Issues retrieved', null);
+        this.uiStateStore.endAction('Issues retrieved');
       },
         err =>  {
-          this.uiStateStore.endAction('Error retrieving issues', null);
+          this.uiStateStore.endAction('Error retrieving issues');
           this.snackBar.open('No issues found', null, this.config);
         }
       );
