@@ -6,25 +6,21 @@ import { UiStateStore } from './ui-state';
 import { MatSnackBar } from '@angular/material';
 import { map, debounceTime } from 'rxjs/operators';
 import { makeKeyStr } from '../utilities/objects/objects';
-
-interface CacheContent {
-  expiry: number;
-  value: any;
-}
+import { CacheService } from '../services/cache.service';
 
 @Injectable()
 export class UsersStore {
-
+  private _key: string;
+  private _selected: string;
   private _usersObject: BehaviorSubject<any> = new BehaviorSubject({});
   public readonly usersObject: Observable<IUsersObject> = this._usersObject;
-  private cache: Map<string, CacheContent> = new Map<string, CacheContent>();
   private _userSelected: BehaviorSubject<any> = new BehaviorSubject({});
   public readonly userSelected: Observable<IUser> = this._userSelected;
-  readonly DEFAULT_MAX_AGE: number = 300000;
   config = { duration: 1500 };
 
   constructor(
     private usersService: UsersService,
+    private cache: CacheService,
     public uiStateStore: UiStateStore,
     public snackBar: MatSnackBar
   ) {
@@ -41,51 +37,54 @@ export class UsersStore {
     return this.userSelected;
   }
 
-  navigate() {
-    this.uiStateStore.routeQueryParams$.subscribe(x => {
-      const queryParams = {
-        ...params,
-        sort: x.get('sort') || params.sort,
-        order: x.get('order') || params.order,
-        page: x.get('page') || params.page,
-        perPage: x.get('perPage') || params.perPage,
-        searchTerm: x.get('searchTerm') || params.searchTerm
-      };
-      const selected = x.get('selected') || params.selected;
-      return this.loadUsers(queryParams, selected);
+  navigate(): void {
+    this.uiStateStore.routeQueryParams$.subscribe(p => {
+      this._selected = p.get('selected') || params.selected;
+      return this.loadUsers(this.getParams(p));
     });
   }
 
-  loadUsersFromCache(key, selected, isSelected) {
-    this._usersObject.next(this.cache.get(key).value);
-    this._userSelected.next(this.cache.get(key).value.items.filter(x => x.id === +selected)[0]);
-    this.uiStateStore.endAction('Users retrieved', isSelected);
+  getParams(p): Object {
+    return {
+      ...params,
+      sort: p.get('sort') || params.sort,
+      order: p.get('order') || params.order,
+      page: p.get('page') || params.page,
+      perPage: p.get('perPage') || params.perPage,
+      searchTerm: p.get('searchTerm') || params.searchTerm
+    };
   }
 
-  loadUsersFromNetwork(userParams, key, selected, isSelected) {
-    const expiry = Date.now() + this.DEFAULT_MAX_AGE;
+  loadCache(): void {
+    const users = this.cache.getCache(this._key).value;
+    const selected = users.items.filter(x => x.id === +this._selected)[0];
+    this.nextData(this._usersObject, users);
+    this.nextData(this._userSelected, selected);
+    this.uiStateStore.endAction('Users retrieved');
+  }
+
+  loadApi(userParams): void {
     this.usersService.getUsers(userParams).subscribe(res => {
-      const value = res;
-      this.cache.set(key, { value, expiry });
-      this._usersObject.next(res);
-      this._userSelected.next(res.items.filter(x => x.id === +selected)[0]);
-      this.uiStateStore.endAction('Users retrieved', isSelected);
+      this.cache.setCache(this._key, res);
+      this.nextData(this._usersObject, res);
+      this.nextData(this._userSelected, res.items.filter(x => x.id === +this._selected)[0]);
+      this.uiStateStore.endAction('Users retrieved');
     },
       err =>  {
-        this.uiStateStore.endAction('Error retrieving Users', isSelected);
-        this.snackBar.open('No Users found', null, this.config);
+        this.uiStateStore.endAction('Error retrieving Users');
+        this.snackBar.open('Error retrieving Users', null, this.config);
       }
     );
   }
 
-  loadUsers(userParams, selected) {
-    const isSelected = selected !== '';
-    const p = userParams;
-    const key = makeKeyStr(p);
-    this.uiStateStore.startAction('Retrieving Users...', isSelected);
-    this.cache.has(key)
-      ? this.loadUsersFromCache(key, selected, isSelected)
-      : this.loadUsersFromNetwork(p, key, selected, isSelected);
+  nextData(obs: BehaviorSubject<any>, data: IUsersObject | Object): void {
+    return obs.next(data);
+  }
+
+  loadUsers(p): void {
+    this._key = makeKeyStr(p);
+    this.uiStateStore.startAction('Retrieving Users...');
+    return this.cache.validKey(this._key) ? this.loadCache() : this.loadApi(p);
   }
 
 }
