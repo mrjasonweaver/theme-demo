@@ -44,7 +44,7 @@ export class UsersStore {
     });
   }
 
-  getParams(p): Object {
+  getParams(p): IParams {
     return {
       ...params,
       sort: p.get('sort') || params.sort,
