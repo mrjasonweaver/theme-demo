@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UsersService } from '../services/users/users.service';
 import { IUsersObject, IUser, IParams, params } from '../models/users';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { UiStateStore } from './ui-state';
 import { MatSnackBar } from '@angular/material';
 import { map } from 'rxjs/operators';

@@ -8,7 +8,8 @@
 .mat-column-comments {
   text-align: center;
 }
-.mat-column-user {
+.mat-column-user,
+.mat-column-type {
   max-width: 140px;
 }
 .mat-column-title {

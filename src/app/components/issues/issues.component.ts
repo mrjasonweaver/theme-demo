@@ -10,7 +10,7 @@ import { UiStateStore } from '../../store/ui-state';
 })
 export class IssuesComponent {
 
-  displayedColumns = ['number', 'user', 'title', 'created', 'comments'];
+  displayedColumns = ['number', 'user', 'type', 'title', 'created', 'comments'];
 
   constructor(
     public issuesStore: IssuesStore,
@@ -21,19 +21,19 @@ export class IssuesComponent {
   onPageChange(event, routeQueryParams) {
     const page = event.pageIndex + 1;
     const { sort, order, searchTerm } = routeQueryParams;
-    return this.router.navigate(['/users'], { queryParams: { sort, order, page, searchTerm } });
+    return this.router.navigate(['/reports'], { queryParams: { sort, order, page, searchTerm } });
   }
 
   onSortData(event, routeQueryParams) {
     const { active: sort, direction: order } = event;
     const { page, searchTerm } = routeQueryParams;
-    return this.router.navigate(['/users'], { queryParams: { sort, order, page, searchTerm } });
+    return this.router.navigate(['/reports'], { queryParams: { sort, order, page, searchTerm } });
   }
 
   onSearchChange(value: string, routeQueryParams) {
     const searchTerm = value;
     const { sort, order, page } = routeQueryParams;
-    return this.router.navigate(['/users'], { queryParams: { sort, order, page, searchTerm } });
+    return this.router.navigate(['/reports'], { queryParams: { sort, order, page, searchTerm } });
   }
 
 }

@@ -4,13 +4,16 @@ import { IIssuesObject, IIssue, IParams, params } from '../models/issues';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { UiStateStore } from './ui-state';
 import { MatSnackBar } from '@angular/material';
-import { map } from 'rxjs/operators';
+import { map, flatMap, pluck, filter, reduce } from 'rxjs/operators';
 
 @Injectable()
 export class IssuesStore {
 
-  private _issuesObject: BehaviorSubject<any> = new BehaviorSubject({});
-  public readonly issuesObject: Observable<IIssuesObject> = this._issuesObject.asObservable();
+  private _issuesObject: BehaviorSubject<any> = new BehaviorSubject({items: []});
+  public readonly issuesObject: Observable<IIssuesObject> = this._issuesObject;
+  issuesWithComments: Observable<any> = this._issuesObject.pipe(
+    pluck('items')
+  );
   config = { duration: 1500 };
 
   constructor(
@@ -19,13 +22,17 @@ export class IssuesStore {
     public snackBar: MatSnackBar
   ) {
     this.navigate();
+    this.issuesWithComments$.subscribe(x => console.log('comments', x));
   }
 
   get issues$() {
-    return this._issuesObject.pipe(map(res => res.items));
+    return this.issuesObject.pipe(map(res => res.items));
   }
   get issuesCount$() {
-    return this._issuesObject.pipe(map(res => res.total_count));
+    return this.issuesObject.pipe(map(res => res.total_count));
+  }
+  get issuesWithComments$() {
+    return this.issuesWithComments;
   }
 
   navigate() {
