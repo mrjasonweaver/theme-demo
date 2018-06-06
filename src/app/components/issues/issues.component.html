@@ -11,6 +11,7 @@
           (keyup.enter)="onSearchChange(searchBox.value, routeQueryParams.params)">
       </mat-form-field>
     </form>
+    <pre *ngIf="(issuesStore.issuesWithComments$ | async) as issuesWithComments">{{ issuesWithComments.length | json }}</pre>
     <mat-table
       #table
       matSort

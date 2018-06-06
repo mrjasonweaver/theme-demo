@@ -10,10 +10,9 @@ import { map, flatMap, pluck, filter, reduce } from 'rxjs/operators';
 export class IssuesStore {
 
   private _issuesObject: BehaviorSubject<any> = new BehaviorSubject({items: []});
+  private _issuesWithComments: BehaviorSubject<any> = new BehaviorSubject([]);
   public readonly issuesObject: Observable<IIssuesObject> = this._issuesObject;
-  issuesWithComments: Observable<any> = this._issuesObject.pipe(
-    pluck('items')
-  );
+  public readonly issuesWithComments: Observable<IIssue[]> = this._issuesWithComments;
   config = { duration: 1500 };
 
   constructor(
@@ -22,7 +21,6 @@ export class IssuesStore {
     public snackBar: MatSnackBar
   ) {
     this.navigate();
-    this.issuesWithComments$.subscribe(x => console.log('comments', x));
   }
 
   get issues$() {
@@ -54,6 +52,8 @@ export class IssuesStore {
     this.uiStateStore.startAction('Retrieving issues...');
     this.issuesService.getIssues(userParams)
       .subscribe(res => {
+        const comments = res.items.filter(x => x.comments > 0);
+        this._issuesWithComments.next(comments);
         this._issuesObject.next(res);
         this.uiStateStore.endAction('Issues retrieved');
       },
