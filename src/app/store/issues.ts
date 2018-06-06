@@ -4,7 +4,7 @@ import { IIssuesObject, IIssue, IParams, params } from '../models/issues';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { UiStateStore } from './ui-state';
 import { MatSnackBar } from '@angular/material';
-import { map, flatMap, pluck, filter, reduce } from 'rxjs/operators';
+import { pluck } from 'rxjs/operators';
 
 @Injectable()
 export class IssuesStore {
@@ -24,10 +24,10 @@ export class IssuesStore {
   }
 
   get issues$() {
-    return this.issuesObject.pipe(map(res => res.items));
+    return this.issuesObject.pipe( pluck('items') );
   }
   get issuesCount$() {
-    return this.issuesObject.pipe(map(res => res.total_count));
+    return this.issuesObject.pipe( pluck('total_count') );
   }
   get issuesWithComments$() {
     return this.issuesWithComments;
